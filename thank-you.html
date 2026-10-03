@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1B8354">
+  <meta name="description" content="جهّز رسالة شكر وتقدير لمعلّمك ضمن مبادرة المعلم لغة وأثر.">
+  <meta name="robots" content="noindex, nofollow">
+  <title>رسالة شكر وتقدير للمعلّم — المعلم لغة وأثر</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="thank-you.css?v=2">
+</head>
+<body>
+  <header class="thank-header">
+    <div class="thank-container thank-header-inner">
+      <a class="thank-brand" href="index.html?stay=ar" aria-label="العودة إلى مبادرة المعلم لغة وأثر">
+        <img class="thank-iu-logo" src="https://cdn.iu.edu.sa/NDS-iu/assets/img/iu-logo.svg" alt="شعار الجامعة الإسلامية بالمدينة المنورة">
+        <span>معهد تعليم اللغة العربية لغير الناطقين بها<br><strong>المعلم لغة وأثر</strong></span>
+      </a>
+      <a class="thank-back" href="index.html?stay=ar">العودة إلى المبادرة</a>
+    </div>
+  </header>
+
+  <main class="thank-container thank-page">
+    <div class="thank-intro">
+      <img class="thank-initiative-logo" src="initiative-logo.jpg?v=1" width="1536" height="1024" alt="شعار مبادرة المعلم لغة وأثر">
+      <span class="thank-kicker">كلمات من الطالب إلى معلّمه</span>
+      <h1>رسالة شكر وتقدير للمعلّم</h1>
+      <p>أدخل اسمك واسم معلّمك لعرض رسالة الشكر، ثم اطبعها أو احفظها بصيغة PDF لتقدّمها إليه.</p>
+      <p class="thank-privacy">هذه رسالة منك إلى معلّمك. بياناتها لا تُنشر في جدار الأثر.</p>
+    </div>
+
+    <section id="thankEditor" class="thank-editor" aria-labelledby="thankEditorTitle">
+      <h2 id="thankEditorTitle">أدخل الاسمين</h2>
+      <p class="thank-help">اكتب اسمك واسم معلّمك كما تريد ظهورهما في الرسالة. نص الشكر ثابت وجاهز.</p>
+      <form id="thankForm" class="thank-form">
+        <div class="thank-fields">
+          <label for="thankStudentInput">اسم الطالب
+            <input id="thankStudentInput" name="student" type="text" maxlength="40" placeholder="اكتب اسمك" autocomplete="name" required>
+          </label>
+          <label for="thankTeacherInput">اسم المعلّم
+            <input id="thankTeacherInput" name="teacher" type="text" maxlength="40" placeholder="اكتب اسم معلّمك" autocomplete="off" required>
+          </label>
+        </div>
+        <div class="thank-fixed-copy" aria-labelledby="thankFixedTitle">
+          <h3 id="thankFixedTitle">نص الرسالة</h3>
+          <p id="thankFixedText" translate="no"></p>
+        </div>
+        <button class="thank-button" type="submit">معاينة الرسالة</button>
+      </form>
+    </section>
+
+    <p id="thankStatus" class="thank-status" role="status" aria-live="polite"></p>
+
+    <div id="thankActions" class="thank-actions" hidden>
+      <button id="printThankYou" class="thank-button" type="button" disabled>طباعة الرسالة أو حفظها بصيغة PDF</button>
+      <button id="editThankYou" class="thank-button thank-button-secondary" type="button">تعديل الاسمين</button>
+    </div>
+
+    <article id="thankSheet" class="thank-sheet" hidden tabindex="-1" aria-labelledby="thankTitle">
+      <div class="letter-heading">
+        <img class="letter-logo" src="initiative-logo.jpg?v=1" width="1536" height="1024" alt="شعار مبادرة المعلم لغة وأثر">
+        <span class="letter-initiative">مبادرة «المعلم لغة وأثر»</span>
+        <h2 id="thankTitle">رسالة شكر وتقدير للمعلّم</h2>
+        <div class="letter-gold-rule" aria-hidden="true"></div>
+      </div>
+      <p class="letter-recipient">إلى معلّمي: <strong id="thankTeacher"></strong></p>
+      <div id="thankMessage" class="letter-message" translate="no"></div>
+      <div class="letter-signature">
+        <p>من طالبك: <strong id="thankStudent"></strong></p>
+        <p class="letter-date">التاريخ: <time id="thankDate"></time></p>
+      </div>
+      <p class="letter-note">رسالة من الطالب إلى معلّمه.</p>
+    </article>
+
+    <p class="thank-print-notice">عاين رسالتك أولًا، ثم اختر «طباعة الرسالة أو حفظها بصيغة PDF».</p>
+  </main>
+
+  <footer class="thank-footer">
+    <div class="thank-container">مبادرة «المعلم لغة وأثر» — معهد تعليم اللغة العربية لغير الناطقين بها</div>
+  </footer>
+  <script src="thank-you.js?v=2"></script>
+</body>
+</html>

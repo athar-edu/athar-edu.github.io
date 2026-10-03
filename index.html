@@ -7,7 +7,7 @@
   <meta name="description" content="مبادرة المعلم لغة وأثر — معهد تعليم اللغة العربية بالجامعة الإسلامية بالمدينة المنورة">
   <title>المعلم لغة وأثر</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="stylesheet" href="style.css?v=7">
+  <link rel="stylesheet" href="style.css?v=9">
 </head>
 <body>
   <svg class="svg-sprite" aria-hidden="true" focusable="false">
@@ -53,7 +53,7 @@
         <button id="menuButton" class="menu-button" type="button" aria-label="فتح القائمة" aria-controls="mobileNavWrap" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
-        <button id="languageButton" class="language-button" type="button" title="عرض الصفحة بلغة الطالب">
+        <button id="languageButton" class="language-button" type="button" title="ترجمة إرشادات الموقع إلى لغة جهازك">
           <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-globe"></use></svg>
           <span id="languageStatus">لغة الطالب</span>
         </button>
@@ -66,6 +66,7 @@
         <a href="#language">لغة</a>
         <a href="#impact">أثر</a>
         <a href="#wall">جدار الأثر</a>
+        <a href="thank-you.html">رسالة شكر لمعلّمك</a>
         <a class="mobile-cta" href="#participate"><svg class="icon" aria-hidden="true"><use href="#i-pen"></use></svg><span>شارك بأثرك</span></a>
       </nav>
     </div>
@@ -73,7 +74,7 @@
 
   <div class="language-notice" id="languageNotice" hidden>
     <div class="container language-notice-inner">
-      <span id="languageNoticeText">يتم ضبط لغة الواجهة تلقائيًا حسب لغة جهاز الطالب.</span>
+      <span id="languageNoticeText">يمكنك ترجمة إرشادات الموقع إلى لغة جهازك باستخدام زر اللغة.</span>
       <a id="keepArabic" href="?stay=ar">العربية الأصلية</a>
     </div>
   </div>
@@ -84,12 +85,13 @@
       <div class="container hero-grid">
         <div class="hero-copy">
           <span class="eyebrow">مبادرة تعليمية بمناسبة اليوم العالمي للمعلم</span>
-          <h1 translate="no"><span class="title-main">المعلم</span><br><span class="title-sub">لغة وأثر</span></h1>
-          <p class="hero-lead">نتعلّم العربية… ونكتب أثرَ من علّمنا.</p>
-          <p class="hero-text">تجربة لغوية تفاعلية تجعل من الاحتفاء بالمعلم موقفًا حقيقيًا لاستخدام العربية في التعبير، والكتابة، والتحدث، واستحضار الأثر.</p>
+          <h1 class="initiative-title" translate="no"><span class="visually-hidden">المعلم لغة وأثر</span><img class="initiative-logo" src="initiative-logo.jpg?v=1" width="1536" height="1024" alt="" fetchpriority="high" decoding="async"></h1>
+          <p class="hero-lead">نتعلّم العربية… ونوثّق أثرَ من علّمنا.</p>
+          <p class="hero-text">تجربة لغوية تفاعلية تربط الاحتفاء بالمعلّم باستخدام العربية في التعبير والكتابة وتوثيق الأثر.</p>
           <div class="hero-actions">
             <a class="btn" href="#participate"><svg class="icon" aria-hidden="true"><use href="#i-pen"></use></svg><span>ابدأ المشاركة</span></a>
             <a class="btn btn-ghost" href="#language"><svg class="icon" aria-hidden="true"><use href="#i-book"></use></svg><span>استكشف الأنشطة</span></a>
+            <a class="btn btn-ghost" href="thank-you.html"><svg class="icon" aria-hidden="true"><use href="#i-heart"></use></svg><span>رسالة شكر لمعلّمك</span></a>
           </div>
           <div class="hero-metrics" aria-label="محاور المبادرة">
             <div><b>4</b><span>مستويات لغوية</span></div>
@@ -100,10 +102,10 @@
 
         <div class="hero-card">
           <div class="quote-mark">“</div>
-          <p translate="no">كان معلمي يطلب مني أن أتحدث بالعربية حتى لو أخطأت. واليوم أصبحت أكثر ثقة.</p>
+          <p translate="no">كان معلّمي يطلب مني أن أتحدّث بالعربية حتى لو أخطأت. واليوم أصبحت أكثر ثقة.</p>
           <div class="student">
             <span class="avatar">ط</span>
-            <div><strong>طالب في المعهد</strong><small>قصة أثر</small></div>
+            <div><strong>نموذج توضيحي</strong><small>للتدريب على التعبير</small></div>
           </div>
           <div class="mini-tags" translate="no"><span>الثقة</span><span>الصبر</span><span>العربية</span></div>
         </div>
@@ -122,19 +124,19 @@
             <span class="feature-icon" aria-hidden="true"><svg class="icon icon-lg"><use href="#i-book"></use></svg></span>
             <span class="num">01</span>
             <h3>استخدام اللغة</h3>
-            <p>مفردات وتراكيب وتعبير شفهي وكتابي في سياقات حقيقية.</p>
+            <p>مفردات وتراكيب وتعبير كتابي في سياقات حقيقية.</p>
           </article>
           <article>
             <span class="feature-icon" aria-hidden="true"><svg class="icon icon-lg"><use href="#i-heart"></use></svg></span>
             <span class="num">02</span>
             <h3>توثيق الأثر</h3>
-            <p>رسائل وقصص قصيرة تحفظ أثر المعلم في تجربة الطالب.</p>
+            <p>رسائل وقصص قصيرة تحفظ أثر المعلّم في تجربة الطالب.</p>
           </article>
           <article>
             <span class="feature-icon" aria-hidden="true"><svg class="icon icon-lg"><use href="#i-levels"></use></svg></span>
             <span class="num">03</span>
             <h3>تنوع المستويات</h3>
-            <p>من جملة بسيطة للمبتدئ إلى قصة ومقال ومقابلة للمتقدم.</p>
+            <p>أنشطة متدرّجة، من كلمات وجمل قصيرة للمبتدئ إلى رسائل وقصص للمتقدّم.</p>
           </article>
         </div>
       </div>
@@ -147,7 +149,7 @@
             <span class="kicker">المسار الأول</span>
             <div class="title-with-icon"><span class="section-icon" aria-hidden="true"><svg class="icon icon-lg"><use href="#i-book"></use></svg></span><h2 translate="no">لغة</h2></div>
           </div>
-          <p>اختر مستواك، ثم استخدم العربية لتصف المعلم وتعبّر عن أثره. تبقى مفردات التدريب والنماذج بالعربية مهما كانت لغة واجهة الطالب.</p>
+          <p>اختر مستواك، ثم استخدم العربية لتصف المعلّم وتعبّر عن أثره. تبقى مفردات التدريب والنماذج بالعربية مهما كانت لغة واجهة الطالب.</p>
         </div>
 
         <div class="level-tabs" role="tablist" aria-label="المستويات اللغوية">
@@ -177,11 +179,11 @@
         <div>
           <span class="kicker">المسار الثاني</span>
           <div class="title-with-icon"><span class="section-icon impact" aria-hidden="true"><svg class="icon icon-lg"><use href="#i-heart"></use></svg></span><h2 translate="no">أثر</h2></div>
-          <p class="large-copy">ما الأثر الذي تركه معلمك؟ اختر بداية عربية، ثم أكملها بلغتك العربية أنت.</p>
+          <p class="large-copy">ما الأثر الذي تركه معلّمك؟ اختر بداية للجملة، ثم أكملها بالعربية مستخدمًا كلماتك الخاصة.</p>
           <div class="prompt-list" translate="no">
-            <button data-prompt="علمني معلمي أن ">علمني…</button>
-            <button data-prompt="شجعني معلمي على ">شجعني على…</button>
-            <button data-prompt="لن أنسى عندما ">لن أنسى عندما…</button>
+            <button data-prompt="علّمني معلّمي أن ">علّمني…</button>
+            <button data-prompt="شجّعني معلّمي على ">شجّعني على…</button>
+            <button data-prompt="لن أنسى موقفًا مع معلّمي عندما ">لن أنسى موقفًا…</button>
             <button data-prompt="أشكره لأنه ">أشكره لأنه…</button>
           </div>
         </div>
@@ -203,14 +205,19 @@
       <div class="container form-grid">
         <div>
           <span class="kicker kicker-light">شارك الآن</span>
-          <h2>اكتب أثرَ معلمك</h2>
+          <h2>اكتب عن أثر معلّمك</h2>
           <p>اكتب رسالة قصيرة بالعربية. يمكن أن تبدأ بجملة واحدة فقط؛ الأهم أن تكون من تجربتك.</p>
-          <div class="privacy-note"><svg class="icon" aria-hidden="true"><use href="#i-shield"></use></svg><span>لغة الإرشادات تتكيف مع الطالب، أما الإجابة فهدفها ممارسة العربية. تُرسل المشاركة إلى إدارة المبادرة للمراجعة، ويظهر اسمك ودولتك ومستواك ورسالتك للعامة بعد اعتمادها. يمكنك ترك الاسم فارغًا.</span></div>
+          <div class="privacy-note"><svg class="icon" aria-hidden="true"><use href="#i-shield"></use></svg><span>يمكنك ترجمة إرشادات الموقع عبر زر اللغة، وتبقى أنشطة التدرّب والرسالة باللغة العربية. تُحفظ مشاركتك وتُعتمد تلقائيًا، ويظهر اسمك ودولتك ومستواك ورسالتك للعامة في جدار الأثر. يمكنك ترك الاسم فارغًا.</span></div>
+          <div class="thank-link-card">
+            <h3>رسالة شكر لمعلّمك</h3>
+            <p>أدخل اسمك واسم معلّمك في رسالة الشكر الموحّدة، ثم اطبعها أو احفظها بصيغة PDF.</p>
+            <a class="btn btn-light" href="thank-you.html"><svg class="icon" aria-hidden="true"><use href="#i-heart"></use></svg><span>أنشئ رسالة الشكر</span></a>
+          </div>
         </div>
 
         <form class="impact-form" id="impactForm">
           <div class="field-grid">
-            <label>اسم الطالب <small>(اختياري — يظهر على شهادة المشاركة)</small>
+            <label>اسم الطالب <small>(اختياري؛ يظهر في شهادة المشاركة عند إدخاله)</small>
               <input name="student" maxlength="40" placeholder="اسمك">
             </label>
             <label>الدولة
@@ -227,15 +234,15 @@
                 <option>المستوى الرابع</option>
               </select>
             </label>
-            <label>اسم المعلم <small>(اختياري)</small>
+            <label>اسم المعلّم <small>(اختياري)</small>
               <input name="teacher" maxlength="40" placeholder="اسم المعلم">
             </label>
           </div>
           <label>رسالتك بالعربية
-            <textarea id="messageField" name="message" maxlength="2000" rows="5" placeholder="علمني معلمي أن..." required translate="no"></textarea>
+            <textarea id="messageField" name="message" maxlength="2000" rows="5" placeholder="علّمني معلّمي أن…" required translate="no"></textarea>
             <span class="counter"><b id="charCount">0</b>/2000</span>
           </label>
-          <button class="btn btn-light" type="submit"><svg class="icon" aria-hidden="true"><use href="#i-send"></use></svg><span>أرسل للمراجعة</span></button>
+          <button class="btn btn-light" type="submit"><svg class="icon" aria-hidden="true"><use href="#i-send"></use></svg><span>أرسل مشاركتك</span></button>
           <p class="form-status" id="formStatus" role="status"></p>
         </form>
       </div>
@@ -260,7 +267,7 @@
       <div class="container closing">
         <span class="kicker">من العالم إلى المدينة</span>
         <div class="title-with-icon title-center"><span class="section-icon world" aria-hidden="true"><svg class="icon icon-lg"><use href="#i-world"></use></svg></span><h2>لغة تجمعنا، وأثر يبقى.</h2></div>
-        <p>طلاب من ثقافات متعددة يلتقون في المدينة المنورة ويتعلمون العربية، ولكل واحد منهم قصة مع معلم ترك أثرًا.</p>
+        <p>طلاب من ثقافات متعددة يلتقون في المدينة المنورة ويتعلّمون العربية، ولكل واحد منهم قصة مع معلّم ترك أثرًا.</p>
         <a class="btn" href="#participate"><svg class="icon" aria-hidden="true"><use href="#i-pen"></use></svg><span>اكتب قصتك</span></a>
       </div>
     </section>
@@ -268,9 +275,9 @@
 
   <footer>
     <div class="container footer-inner">
-      <div>
-        <strong translate="no">المعلم لغة وأثر</strong>
-        <span>معهد تعليم اللغة العربية لغير الناطقين بها</span>
+      <div class="footer-brand">
+        <img class="footer-initiative-logo" src="initiative-logo.jpg?v=1" width="1536" height="1024" alt="" loading="lazy">
+        <div><strong translate="no">المعلم لغة وأثر</strong><span>معهد تعليم اللغة العربية لغير الناطقين بها</span></div>
       </div>
       <small>مبادرة المعلم لغة وأثر — الجامعة الإسلامية بالمدينة المنورة</small>
     </div>
@@ -278,6 +285,6 @@
 
   <script src="supabase-config.js?v=2"></script>
   <script src="supabase-client.js?v=2"></script>
-  <script src="script.js?v=9"></script>
+  <script src="script.js?v=10"></script>
 </body>
 </html>

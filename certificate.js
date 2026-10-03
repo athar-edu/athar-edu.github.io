@@ -32,20 +32,20 @@
     const query = new URLSearchParams(window.location.search);
     const id = query.get("id") || "";
     if(!uuidPattern.test(id)){
-      showError("رابط الشهادة غير مكتمل أو غير صالح. عد إلى المبادرة وافتح رابط شهادة مشاركتك.");
+      showError("رابط الشهادة غير مكتمل أو غير صالح. استخدم رابط الشهادة الذي ظهر بعد إرسال مشاركتك.");
       return;
     }
 
     const db = window.TeacherImpactDB;
     if(!db || typeof db.isConfigured !== "function" || !db.isConfigured() || typeof db.getApproved !== "function"){
-      showError("خدمة الشهادات غير جاهزة حاليًا. احتفظ بالرابط وحاول لاحقًا.");
+      showError("خدمة الشهادات غير متاحة حاليًا. احتفظ بالرابط وحاول لاحقًا.");
       return;
     }
 
     try{
       const record = await db.getApproved(id);
       if(!record || record.status !== "approved" || typeof record.id !== "string" || record.id.toLowerCase() !== id.toLowerCase()){
-        showError("لا توجد شهادة متاحة لهذا الرابط. تتاح الشهادة بعد اعتماد المشاركة.");
+        showError("لا توجد شهادة متاحة لهذا الرابط. تحقق من رابط الشهادة الذي ظهر بعد إرسال مشاركتك.");
         return;
       }
       const student = typeof record.student_name === "string" && record.student_name.trim()
@@ -64,7 +64,7 @@
       ready = true;
       printButton.disabled = false;
     }catch(error){
-      showError("تعذر تحميل الشهادة الآن. احتفظ بالرابط وحاول مرة أخرى لاحقًا.");
+      showError("تعذر تحميل الشهادة حاليًا. احتفظ بالرابط، ثم حاول مرة أخرى لاحقًا.");
     }
   }
 

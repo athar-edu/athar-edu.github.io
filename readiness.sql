@@ -21,7 +21,7 @@ from readiness_fixture where n in (3001, 3002);
 
 set local role anon;
 -- The same privileges used by visitors accept 3,000 synthetic submissions.
--- Do not use RETURNING: new pending rows must remain invisible to the caller.
+-- Omit status and created_at: the server owns automatic approval and timestamps.
 insert into public.teacher_impact_submissions
   (id, student_name, country, level, teacher_name, message)
 select id, 'Synthetic QA ' || n, 'QA', 'المستوى الأول', '',
@@ -35,14 +35,14 @@ declare
 begin
   select count(*) into seen from public.teacher_impact_submissions s
     join readiness_fixture f using (id);
-  if seen <> 1 then
-    raise exception 'FAIL anon SELECT: expected only the approved fixture, got %', seen;
+  if seen <> 3001 then
+    raise exception 'FAIL anon SELECT: expected 3000 new approved rows plus the approved fixture, got %', seen;
   end if;
   if exists (select 1 from public.teacher_impact_submissions where status <> 'approved') then
     raise exception 'FAIL anon SELECT exposed a pending or rejected row';
   end if;
 
-  -- A retry with the same UUID must not create a second row, even while pending.
+  -- A retry with the same UUID must not create a second automatically approved row.
   begin
     insert into public.teacher_impact_submissions
       (id, student_name, country, level, teacher_name, message)
@@ -92,7 +92,7 @@ begin
     raise exception 'FAIL message over 2000 characters accepted';
   exception when check_violation then null;
   end;
-  raise notice 'PASS anon: 3000 INSERTs, approved-only SELECT, no moderation/date writes, duplicate rejection, validation';
+  raise notice 'PASS anon: 3000 automatic-approved INSERTs, rejected hidden, no status/date writes, duplicate rejection, validation';
 end;
 $qa$;
 
@@ -102,11 +102,11 @@ declare saved integer;
 begin
   select count(*) into saved from public.teacher_impact_submissions s
     join readiness_fixture f using (id)
-    where f.n <= 3000 and s.status = 'pending' and s.created_at = transaction_timestamp();
+    where f.n <= 3000 and s.status = 'approved' and s.created_at = transaction_timestamp();
   if saved <> 3000 then
-    raise exception 'FAIL administrator expected 3000 pending rows with server timestamp, got %', saved;
+    raise exception 'FAIL administrator expected 3000 approved rows with server timestamp, got %', saved;
   end if;
-  raise notice 'PASS administrator: exactly 3000 pending capacity fixtures exist';
+  raise notice 'PASS administrator: exactly 3000 automatic-approved capacity fixtures exist';
 end;
 $qa$;
 
@@ -120,8 +120,8 @@ declare seen integer;
 begin
   select count(*) into seen from public.teacher_impact_submissions s
     join readiness_fixture f using (id);
-  if seen <> 1 then
-    raise exception 'FAIL authenticated SELECT: expected only approved fixture, got %', seen;
+  if seen <> 3002 then
+    raise exception 'FAIL authenticated SELECT: expected 3002 approved fixtures, got %', seen;
   end if;
   begin
     insert into public.teacher_impact_submissions (country, level, message, status)
@@ -146,8 +146,8 @@ end;
 $qa$;
 
 reset role;
--- Moderate one synthetic pending fixture; leave every real record untouched.
-update public.teacher_impact_submissions set status = 'approved'
+-- Reject one automatically approved fixture; leave every real record untouched.
+update public.teacher_impact_submissions set status = 'rejected'
   where id = (select id from readiness_fixture where n = 1);
 set local role anon;
 do $qa$
@@ -155,10 +155,10 @@ declare seen integer;
 begin
   select count(*) into seen from public.teacher_impact_submissions s
     join readiness_fixture f using (id);
-  if seen <> 2 then
-    raise exception 'FAIL approved fixture did not become publicly readable';
+  if seen <> 3001 then
+    raise exception 'FAIL rejected fixture remained publicly readable';
   end if;
-  raise notice 'PASS moderation: approved fixture becomes public';
+  raise notice 'PASS anon rejection: rejected fixture disappears';
 end;
 $qa$;
 reset role;
@@ -169,16 +169,57 @@ declare seen integer;
 begin
   select count(*) into seen from public.teacher_impact_submissions s
     join readiness_fixture f using (id);
-  if seen <> 2 then
-    raise exception 'FAIL authenticated cannot read the newly approved fixture';
+  if seen <> 3001 then
+    raise exception 'FAIL authenticated can still read the rejected fixture';
   end if;
   if exists (select 1 from public.teacher_impact_submissions where status <> 'approved') then
     raise exception 'FAIL authenticated SELECT exposed a pending or rejected row';
   end if;
-  raise notice 'PASS authenticated moderation: approved fixture becomes public';
+  raise notice 'PASS authenticated rejection: rejected fixture disappears';
 end;
 $qa$;
 reset role;
+
+-- Reapprove the same fixture and verify visibility for both public roles.
+update public.teacher_impact_submissions set status = 'approved'
+  where id = (select id from readiness_fixture where n = 1);
+set local role anon;
+do $qa$
+declare seen integer;
+begin
+  select count(*) into seen from public.teacher_impact_submissions s
+    join readiness_fixture f using (id);
+  if seen <> 3002 then
+    raise exception 'FAIL anon cannot read the reapproved fixture';
+  end if;
+  raise notice 'PASS anon reapproval: fixture becomes public again';
+end;
+$qa$;
+reset role;
+set local role authenticated;
+do $qa$
+declare seen integer;
+begin
+  select count(*) into seen from public.teacher_impact_submissions s
+    join readiness_fixture f using (id);
+  if seen <> 3002 then
+    raise exception 'FAIL authenticated cannot read the reapproved fixture';
+  end if;
+  raise notice 'PASS authenticated reapproval: fixture becomes public again';
+end;
+$qa$;
+reset role;
+do $qa$
+begin
+  if not exists (
+    select 1 from public.teacher_impact_submissions s
+    join readiness_fixture f using (id)
+    where f.n = 3002 and s.status = 'rejected'
+  ) then
+    raise exception 'FAIL the originally rejected fixture was changed';
+  end if;
+end;
+$qa$;
 
 rollback;
 -- Expect PASS notices above and a ROLLBACK result; no fixtures persist.

@@ -1,8 +1,8 @@
 const levels = {
-  1:{words:["معلّم","طالب","درس","كتاب","علم","شكر","احترام","قدوة"],title:"صف معلمك بثلاث كلمات",task:"اختر ثلاث كلمات بسيطة تصف معلمك، ثم كوّن جملة قصيرة بالعربية.",example:"مثال: معلمي طيب. معلمي يعلمني العربية."},
-  2:{words:["صبور","مخلص","متعاون","مبتسم","نافع","مجتهد","متفهم"],title:"اكتب رسالة قصيرة",task:"اكتب ثلاثة أسطر بالعربية تبدأ بعبارة: تعلمت من معلمي…",example:"مثال: تعلمت من معلمي أن أتكلم بالعربية كل يوم. أشكره على صبره وتشجيعه."},
-  3:{words:["تجربة","موقف","تأثير","تشجيع","ثقة","تطور","نجاح"],title:"احكِ موقفًا لا تنساه",task:"اكتب من 80 إلى 100 كلمة بالعربية عن موقف ترك أثرًا فيك.",example:"فكر في: ماذا حدث؟ ماذا قال معلمك؟ ماذا تغيّر بعد ذلك؟"},
-  4:{words:["أثر","منهج","توجيه","استقلالية","دافعية","قدوة","تعلّم"],title:"اكتب قصة أثر",task:"اكتب نصًا عربيًا قصيرًا يشرح كيف غيّر معلمٌ طريقة تعلمك أو تفكيرك.",example:"يمكنك تحويل القصة لاحقًا إلى تسجيل صوتي أو مقابلة قصيرة."}
+  1:{words:["طيّب","لطيف","صبور","نشيط","هادئ","مجتهد","متعاون","قدوة"],title:"صِفْ معلّمك بثلاث كلمات",task:"اختر ثلاث كلمات بسيطة تصف معلّمك، ثم كوّن جملة قصيرة بالعربية.",example:"مثال: طيّب، صبور، متعاون. معلّمي طيّب وصبور ومتعاون."},
+  2:{words:["صبور","مخلص","متعاون","مبتسم","نافع","مجتهد","متفهّم"],title:"اكتب رسالة قصيرة",task:"اكتب ثلاثة أسطر بالعربية، وابدأها بعبارة: «تعلّمت من معلّمي…».",example:"مثال: تعلّمت من معلّمي كلمات عربية جديدة. أتدرّب على استخدامها كل يوم. أشكره على صبره وتشجيعه."},
+  3:{words:["تجربة","موقف","تأثير","تشجيع","ثقة","تطوّر","نجاح"],title:"احكِ موقفًا لا تنساه",task:"اكتب من 80 إلى 100 كلمة بالعربية عن موقف حدث مع معلّمك وترك أثرًا فيك.",example:"فكّر في هذه الأسئلة: ماذا حدث؟ ماذا قال معلّمك؟ ماذا تغيّر بعد ذلك؟"},
+  4:{words:["أثر","منهج","توجيه","استقلالية","دافعية","قدوة","تعلّم"],title:"اكتب قصة عن أثر معلّمك",task:"اكتب قصة عربية قصيرة توضّح كيف أثّر معلّمك في طريقة تعلّمك أو تفكيرك.",example:"ابدأ بالموقف، ثم بيّن أثره فيك، واختم بما استفدت منه."}
 };
 
 
@@ -103,7 +103,7 @@ async function configureLanguageExperience(){
     setDirection(target);
     status.textContent = languageName(target);
     notice.hidden = false;
-    noticeText.textContent = "واجهة مساندة مترجمة آليًا — تبقى أنشطة العربية والنماذج التدريبية بالعربية.";
+    noticeText.textContent = "هذه الواجهة مترجمة آليًا لمساعدتك. وتبقى الأنشطة والأمثلة التدريبية باللغة العربية.";
     button.addEventListener("click",()=>{ location.href = location.origin + location.pathname + "?stay=ar"; });
     return;
   }
@@ -121,13 +121,13 @@ async function configureLanguageExperience(){
   if(detected){
     notice.hidden = false;
     noticeText.textContent =
-      "تم تحديد بلد الطالب تقريبياً: " +
+      "البلد المقدّر من موقع الاتصال: " +
       (detected.name || countryName(detected.code)) +
       " — لغة الواجهة المساندة: " + languageName(target) + ".";
   }else if(browserLanguage !== "ar"){
     notice.hidden = false;
     noticeText.textContent =
-      "لغة الواجهة المساندة من إعدادات جهازك: " + languageName(target) + ". اضغط زر اللغة للترجمة.";
+      "اللغة المقترحة لترجمة الواجهة: " + languageName(target) + ". اضغط زر اللغة لعرض الترجمة.";
   }
 
   if(target === "ar"){
@@ -196,7 +196,7 @@ async function renderWall(){
   }catch(error){
     wall.replaceChildren();
     status.textContent=TeacherImpactDB.isConfigured()
-      ? "تعذر تحميل المشاركات. حاول مرة أخرى."
+      ? "تعذر تحميل المشاركات. اضغط «تحديث المشاركات» للمحاولة مرة أخرى."
       : "سيُتاح جدار الأثر عند تفعيل استقبال المشاركات.";
   }
 }
@@ -220,7 +220,7 @@ document.getElementById("impactForm").addEventListener("submit",async e=>{
     message:String(fd.get("message")||"").trim()
   };
   if(!story.country||!story.level||!story.message){
-    status.textContent="يرجى كتابة الدولة والمستوى والرسالة.";return;
+    status.textContent="يرجى إدخال الدولة، واختيار المستوى، وكتابة الرسالة.";return;
   }
   const fingerprint=JSON.stringify(story);
   if(!lastAttempt||lastAttempt.fingerprint!==fingerprint){
@@ -236,15 +236,16 @@ document.getElementById("impactForm").addEventListener("submit",async e=>{
     await TeacherImpactDB.submit({...story,id:submissionId});
     lastAttempt=null;
     form.reset();count.textContent="0";
-    status.textContent="تم استلام مشاركتك للمراجعة. ستظهر في جدار الأثر بعد اعتمادها.";
+    status.textContent="حُفظت مشاركتك بنجاح، واعتمدت تلقائيًا. يمكنك الآن طباعة شهادة المشاركة.";
     const certificateLink=document.createElement("a");
     certificateLink.href="certificate.html?id="+encodeURIComponent(submissionId);
-    certificateLink.textContent=" احتفظ برابط شهادة المشاركة؛ تتاح بعد اعتماد الرسالة.";
+    certificateLink.textContent=" افتح شهادة المشاركة واحتفظ برابطها.";
     status.appendChild(certificateLink);
+    renderWall();
   }catch(error){
     status.textContent=TeacherImpactDB.isConfigured()
-      ? "تعذر تأكيد إرسال المشاركة. احتفظ بنصك وحاول لاحقًا."
-      : "استقبال المشاركات غير مفعّل بعد. احتفظ بنصك وحاول لاحقًا.";
+      ? "تعذر تأكيد استلام مشاركتك. احتفظ بنسخة من نصّك، ثم حاول لاحقًا."
+      : "لم تُفعّل خدمة استقبال المشاركات بعد. احتفظ بنسخة من نصّك، ثم حاول لاحقًا.";
   }finally{
     submitting=false;submit.disabled=false;form.removeAttribute("aria-busy");
   }
