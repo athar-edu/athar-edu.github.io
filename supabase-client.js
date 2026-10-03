@@ -21,25 +21,39 @@
     try{
       const response=await fetch(c.url+"/rest/v1/teacher_impact_submissions"+path,{
         ...options,signal:controller.signal,
-        headers:{apikey:c.key,Authorization:"Bearer "+c.key,"Content-Type":"application/json",...options.headers}
+        headers:{apikey:c.key,...(c.key.split(".").length===3?{Authorization:"Bearer "+c.key}:{}),"Content-Type":"application/json",...options.headers}
       });
-      if(!response.ok)throw new Error("REQUEST_FAILED");
+      if(!response.ok){
+        if(options.method==="POST"&&response.status===409){
+          const error=await response.json().catch(()=>({}));
+          if(error.code==="23505"&&String(error.message).includes("teacher_impact_submissions_pkey"))return;
+        }
+        throw new Error("REQUEST_FAILED");
+      }
       return options.method==="POST" ? undefined : await response.json();
     }finally{clearTimeout(timer);}
   }
   root.TeacherImpactDB=Object.freeze({
     isConfigured(){try{config();return true;}catch(e){return false;}},
-    listApproved(){return request("?select=student_name,country,level,teacher_name,message,created_at,status&status=eq.approved&order=created_at.desc,id.desc&limit=20");},
+    listApproved(){return request("?select=id,student_name,country,level,teacher_name,message,created_at,status&status=eq.approved&order=created_at.desc,id.desc&limit=20");},
+    async getApproved(id){
+      if(!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id))throw new Error("INVALID_INPUT");
+      const rows=await request("?select=id,student_name,country,level,created_at,status&id=eq."+encodeURIComponent(id)+"&status=eq.approved&limit=1");
+      return rows.find(row=>row.status==="approved")||null;
+    },
     submit(story){
-      const limits={student_name:40,country:40,level:40,teacher_name:40,message:280};
+      const limits={student_name:40,country:40,level:40,teacher_name:40,message:2000};
       const data={};
       for(const [field,max] of Object.entries(limits)){
         data[field]=String(story[field]||"").trim();
         if(data[field].length>max)throw new Error("INVALID_INPUT");
       }
       if(!data.country||!data.level||!data.message)throw new Error("INVALID_INPUT");
+      if(story.id){
+        if(!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(story.id))throw new Error("INVALID_INPUT");
+        data.id=story.id;
+      }
       return request("",{method:"POST",headers:{Prefer:"return=minimal"},body:JSON.stringify(data)});
     }
   });
 })(window);
-

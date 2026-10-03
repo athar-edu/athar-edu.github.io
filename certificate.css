@@ -1,0 +1,75 @@
+:root{--green:#1B8354;--green-dark:#104631;--soft:#F3FCF6;--ink:#161616;--muted:#596472;--line:#D2D6DB;--gold:#DBA102}
+*{box-sizing:border-box;min-width:0}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;background:#F8F9FB;color:var(--ink);font-family:"Tahoma","Arial","Noto Sans Arabic",sans-serif;line-height:1.7}
+[hidden]{display:none!important}
+button,a{font:inherit;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+button:focus-visible,a:focus-visible{outline:3px solid var(--green);outline-offset:4px}
+.certificate-page{width:min(1120px,calc(100% - 36px));margin:28px auto 40px}
+.certificate-tools{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-bottom:22px}
+.back-link{color:var(--green-dark);text-underline-offset:4px;padding:10px 0}
+.print-button{display:inline-flex;align-items:center;justify-content:center;gap:9px;background:var(--green);border:1px solid var(--green);border-radius:4px;color:#fff;padding:12px 18px;min-height:44px;cursor:pointer}
+.print-button:hover:not(:disabled){background:var(--green-dark);border-color:var(--green-dark)}
+.print-button:disabled{opacity:.55;cursor:not-allowed}
+.print-button svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
+.certificate-status{padding:18px;border:1px solid var(--line);border-inline-start:4px solid var(--green);background:#fff;border-radius:4px;color:var(--green-dark);margin:0 0 22px}
+.certificate-status[data-state="error"]{border-inline-start-color:#A33D3D;color:#7B2525}
+.certificate-sheet{position:relative;background:#fff;border:2px solid var(--green);border-top:8px solid var(--green);padding:clamp(22px,4vw,44px);box-shadow:0 4px 12px rgba(16,24,40,.06);overflow-wrap:anywhere}
+.certificate-header{display:flex;align-items:center;justify-content:space-between;gap:28px;padding-bottom:20px;border-bottom:1px solid var(--line)}
+.iu-logo{width:200px;height:auto;max-height:66px;object-fit:contain;flex:0 0 auto}
+.certificate-unit{color:var(--green-dark);font-size:14px;line-height:1.8;text-align:end}
+.certificate-unit strong{font-weight:700}
+.certificate-heading{text-align:center;margin:22px 0 18px}
+.certificate-kicker{font-size:14px;color:var(--green-dark);font-weight:700}
+.certificate-heading h1{color:var(--green-dark);font-size:clamp(32px,5vw,48px);line-height:1.3;margin:6px 0 12px}
+.certificate-rule{width:76px;height:3px;background:var(--gold);margin:auto}
+.certificate-recipient{text-align:center;margin:18px auto 26px;max-width:860px}
+.certificate-recipient p{margin:0;font-size:17px}
+.certificate-recipient h2{margin:10px 0 12px;color:var(--green-dark);font-size:clamp(25px,3.6vw,36px);line-height:1.5}
+.certificate-recipient .participation-copy{font-size:18px}
+.certificate-details{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin:0;padding:16px 20px;background:var(--soft);border:1px solid #B8EACB;border-radius:4px;text-align:center}
+.certificate-details div{padding:2px 8px}
+.certificate-details dt{font-size:13px;color:var(--muted);margin-bottom:5px}
+.certificate-details dd{margin:0;font-size:17px;color:var(--green-dark);font-weight:700}
+.certificate-footer{margin-top:24px;text-align:center}
+.certificate-motto{color:var(--green-dark);font-weight:700;font-size:16px;margin:0 0 10px}
+.reference-label{font-size:12px;color:var(--muted);margin:0}
+.reference-label span{display:block;margin-top:3px;font-size:12px;letter-spacing:.02em;unicode-bidi:isolate;overflow-wrap:anywhere}
+@media(max-width:767px){
+  .certificate-page{width:calc(100% - 24px);margin-top:18px}
+  .certificate-tools{gap:12px}
+  .print-button{width:100%;padding-inline:12px}
+  .certificate-header{flex-direction:column;gap:12px;padding-bottom:16px}
+  .iu-logo{width:180px;max-width:100%}
+  .certificate-unit{text-align:center;font-size:12px}
+  .certificate-details{grid-template-columns:1fr;padding:14px;gap:10px}
+  .certificate-details div+div{border-top:1px solid #B8EACB;padding-top:10px}
+  .certificate-recipient p,.certificate-recipient .participation-copy{font-size:16px}
+  .reference-label span{font-size:11px}
+}
+@page{size:A4 landscape;margin:12mm}
+@media print{
+  html,body{background:#fff;margin:0;padding:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .certificate-page{width:100%;margin:0;padding:0}
+  .certificate-tools,.certificate-status{display:none!important}
+  .certificate-sheet{width:100%;height:176mm;margin:0;padding:9mm 12mm;border:1.2pt solid var(--green);border-top:4pt solid var(--green);box-shadow:none;break-inside:avoid;page-break-inside:avoid;display:flex;flex-direction:column;justify-content:space-between}
+  .certificate-header{flex-direction:row;gap:8mm;padding-bottom:4mm}
+  .iu-logo{width:47mm;max-height:17mm}
+  .certificate-unit{text-align:end;font-size:10pt;line-height:1.6}
+  .certificate-heading{margin:3mm 0 2mm}
+  .certificate-kicker{font-size:10pt}
+  .certificate-heading h1{font-size:29pt;margin:1mm 0 2mm}
+  .certificate-rule{width:20mm;height:1pt}
+  .certificate-recipient{max-width:230mm;width:100%;margin:2mm auto 4mm}
+  .certificate-recipient p,.certificate-recipient .participation-copy{font-size:12pt}
+  .certificate-recipient h2{font-size:23pt;line-height:1.4;margin:2mm 0 3mm}
+  .certificate-details{grid-template-columns:repeat(3,minmax(0,1fr));gap:5mm;padding:3mm 4mm}
+  .certificate-details div{padding:0 2mm}
+  .certificate-details div+div{border:0;padding-top:0}
+  .certificate-details dt{font-size:9pt;margin-bottom:1mm}
+  .certificate-details dd{font-size:11pt}
+  .certificate-footer{margin-top:4mm}
+  .certificate-motto{font-size:11pt;margin:0 0 2mm}
+  .reference-label,.reference-label span{font-size:8pt}
+  .reference-label span{margin-top:1mm}
+}

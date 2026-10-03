@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1B8354">
+  <meta name="robots" content="noindex, nofollow">
+  <title>شهادة مشاركة — المعلم لغة وأثر</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="certificate.css?v=1">
+</head>
+<body>
+  <main class="certificate-page">
+    <div class="certificate-tools">
+      <a class="back-link" href="index.html?stay=ar">العودة إلى المبادرة</a>
+      <button id="printCertificate" class="print-button" type="button" disabled>
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 9V3h12v6M6 17H3V9h18v8h-3M6 14h12v7H6zM17 12h1"></path></svg>
+        طباعة الشهادة أو حفظها PDF
+      </button>
+    </div>
+
+    <p id="certificateStatus" class="certificate-status" role="status" aria-live="polite">جارٍ التحقق من المشاركة…</p>
+
+    <article id="certificateSheet" class="certificate-sheet" aria-labelledby="certificateTitle" hidden>
+      <header class="certificate-header">
+        <img class="iu-logo" src="https://cdn.iu.edu.sa/NDS-iu/assets/img/iu-logo.svg" alt="شعار الجامعة الإسلامية بالمدينة المنورة">
+        <div class="certificate-unit">معهد تعليم اللغة العربية لغير الناطقين بها<br><strong>مبادرة المعلم لغة وأثر</strong></div>
+      </header>
+
+      <div class="certificate-heading">
+        <span class="certificate-kicker">المعلم لغة وأثر</span>
+        <h1 id="certificateTitle">شهادة مشاركة</h1>
+        <div class="certificate-rule" aria-hidden="true"></div>
+      </div>
+
+      <div class="certificate-recipient">
+        <p>تقدّر مبادرة «المعلم لغة وأثر» مشاركة</p>
+        <h2 id="certificateStudent"></h2>
+        <p class="participation-copy">في المبادرة وتوثيق أثر المعلم باللغة العربية.</p>
+      </div>
+
+      <dl class="certificate-details">
+        <div><dt>الدولة</dt><dd id="certificateCountry"></dd></div>
+        <div><dt>المستوى</dt><dd id="certificateLevel"></dd></div>
+        <div><dt>تاريخ المشاركة</dt><dd id="certificateDate"></dd></div>
+      </dl>
+
+      <footer class="certificate-footer">
+        <p class="certificate-motto">لغة تجمعنا، وأثر يبقى.</p>
+        <p class="reference-label">معرّف المشاركة المرجعي <span id="certificateReference" dir="ltr"></span></p>
+      </footer>
+    </article>
+  </main>
+
+  <script src="supabase-config.js?v=1"></script>
+  <script src="supabase-client.js?v=2"></script>
+  <script src="certificate.js?v=1"></script>
+</body>
+</html>

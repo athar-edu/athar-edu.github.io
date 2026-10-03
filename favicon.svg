@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>المعلم لغة وأثر</title>
+  <rect width="64" height="64" rx="12" fill="#F3FCF6"/>
+  <path d="M10 17h14c4 0 8 2 8 6v27c-2-4-6-6-10-6H10V17Z" fill="#1B8354"/>
+  <path d="M54 17H40c-4 0-8 2-8 6v27c2-4 6-6 10-6h12V17Z" fill="#166A45"/>
+  <path d="M32 23v27" stroke="#F3FCF6" stroke-width="3"/>
+  <path d="m48 6 2.7 6.3L57 15l-6.3 2.7L48 24l-2.7-6.3L39 15l6.3-2.7L48 6Z" fill="#80519F" stroke="#F3FCF6" stroke-width="2" stroke-linejoin="round"/>
+</svg>

@@ -108,12 +108,10 @@ async function configureLanguageExperience(){
     return;
   }
 
-  const detected = await detectStudentCountry();
-  const target = detected ? chooseCountryLanguage(detected.languages) : normalizeLanguage(browserLanguage);
+  const detected = null;
+  const target = normalizeLanguage(browserLocale);
 
-  if(detected && countryInput && !countryInput.value){
-    countryInput.value = detected.name || countryName(detected.code);
-  }
+  // Country is supplied by the student; a campus IP does not identify nationality.
 
   setDirection("ar");
   status.textContent = detected
@@ -139,12 +137,8 @@ async function configureLanguageExperience(){
 
   button.addEventListener("click",()=>{ location.href = translationUrl(target); });
 
-  const sessionKey = "teacherImpactAutoLang:" + (detected?.code || "device") + ":" + target;
-  const alreadyRedirected = sessionStorage.getItem(sessionKey) === "1";
-  if(!alreadyRedirected && !stayArabic){
-    sessionStorage.setItem(sessionKey,"1");
-    setTimeout(()=>{ location.href = translationUrl(target); }, 850);
-  }
+  // Translation starts only when the student presses the language button.
+  // Do not navigate away while a student is composing a contribution.
 }
 configureLanguageExperience();
 
@@ -196,6 +190,7 @@ async function renderWall(){
         <span class="flag">${escapeHTML(s.country)}</span>
         <blockquote>“${escapeHTML(s.message)}”</blockquote>
         <footer>${escapeHTML(s.student_name||"طالب في المعهد")} · ${escapeHTML(s.level)}</footer>
+        ${/^[0-9a-f-]{36}$/i.test(s.id||"") ? '<a class="btn btn-ghost" href="certificate.html?id='+encodeURIComponent(s.id)+'">شهادة المشاركة</a>' : ""}
       </article>`).join("");
     status.textContent=stories.length ? "" : "لا توجد مشاركات معتمدة حتى الآن.";
   }catch(error){
@@ -209,6 +204,7 @@ document.getElementById("wallRetry").addEventListener("click",renderWall);
 renderWall();
 
 let submitting=false;
+let lastAttempt=null;
 document.getElementById("impactForm").addEventListener("submit",async e=>{
   e.preventDefault();
   if(submitting)return;
@@ -226,15 +222,25 @@ document.getElementById("impactForm").addEventListener("submit",async e=>{
   if(!story.country||!story.level||!story.message){
     status.textContent="يرجى كتابة الدولة والمستوى والرسالة.";return;
   }
+  const fingerprint=JSON.stringify(story);
+  if(!lastAttempt||lastAttempt.fingerprint!==fingerprint){
+    lastAttempt={fingerprint,id:crypto.randomUUID()};
+  }
+  const submissionId=lastAttempt.id;
   const submit=form.querySelector('button[type="submit"]');
   submitting=true;
   submit.disabled=true;
   form.setAttribute("aria-busy","true");
   status.textContent="جارٍ إرسال المشاركة…";
   try{
-    await TeacherImpactDB.submit(story);
+    await TeacherImpactDB.submit({...story,id:submissionId});
+    lastAttempt=null;
     form.reset();count.textContent="0";
     status.textContent="تم استلام مشاركتك للمراجعة. ستظهر في جدار الأثر بعد اعتمادها.";
+    const certificateLink=document.createElement("a");
+    certificateLink.href="certificate.html?id="+encodeURIComponent(submissionId);
+    certificateLink.textContent=" احتفظ برابط شهادة المشاركة؛ تتاح بعد اعتماد الرسالة.";
+    status.appendChild(certificateLink);
   }catch(error){
     status.textContent=TeacherImpactDB.isConfigured()
       ? "تعذر تأكيد إرسال المشاركة. احتفظ بنصك وحاول لاحقًا."
@@ -249,12 +255,16 @@ const mobileNavWrap=document.getElementById("mobileNavWrap");
 if(menuButton && mobileNavWrap){
   const closeMobileMenu=()=>{
     mobileNavWrap.classList.remove("open");
+    mobileNavWrap.inert=true;
+    mobileNavWrap.setAttribute("aria-hidden","true");
     menuButton.setAttribute("aria-expanded","false");
     menuButton.setAttribute("aria-label","فتح القائمة");
   };
   menuButton.addEventListener("click",()=>{
     const open=!mobileNavWrap.classList.contains("open");
     mobileNavWrap.classList.toggle("open",open);
+    mobileNavWrap.inert=!open;
+    mobileNavWrap.setAttribute("aria-hidden",String(!open));
     menuButton.setAttribute("aria-expanded",String(open));
     menuButton.setAttribute("aria-label",open?"إغلاق القائمة":"فتح القائمة");
   });
@@ -263,4 +273,3 @@ if(menuButton && mobileNavWrap){
     if(window.innerWidth>=1100) closeMobileMenu();
   });
 }
-

@@ -6,7 +6,8 @@
   <meta name="theme-color" content="#1B8354">
   <meta name="description" content="مبادرة المعلم لغة وأثر — معهد تعليم اللغة العربية بالجامعة الإسلامية بالمدينة المنورة">
   <title>المعلم لغة وأثر</title>
-  <link rel="stylesheet" href="style.css?v=6">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="style.css?v=7">
 </head>
 <body>
   <svg class="svg-sprite" aria-hidden="true" focusable="false">
@@ -49,7 +50,7 @@
         <a href="#wall">جدار الأثر</a>
       </nav>
       <div class="header-actions">
-        <button id="menuButton" class="menu-button" type="button" aria-label="فتح القائمة" aria-controls="mainNav" aria-expanded="false">
+        <button id="menuButton" class="menu-button" type="button" aria-label="فتح القائمة" aria-controls="mobileNavWrap" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
         <button id="languageButton" class="language-button" type="button" title="عرض الصفحة بلغة الطالب">
@@ -59,7 +60,7 @@
         <a class="btn btn-small" href="#participate"><svg class="icon" aria-hidden="true"><use href="#i-pen"></use></svg><span>شارك بأثرك</span></a>
       </div>
     </div>
-    <div class="mobile-nav-wrap" id="mobileNavWrap">
+    <div class="mobile-nav-wrap" id="mobileNavWrap" inert aria-hidden="true">
       <nav class="mobile-nav" aria-label="التنقل للجوال">
         <a href="#about">المبادرة</a>
         <a href="#language">لغة</a>
@@ -209,7 +210,7 @@
 
         <form class="impact-form" id="impactForm">
           <div class="field-grid">
-            <label>اسم الطالب <small>(اختياري)</small>
+            <label>اسم الطالب <small>(اختياري — يظهر على شهادة المشاركة)</small>
               <input name="student" maxlength="40" placeholder="اسمك">
             </label>
             <label>الدولة
@@ -231,8 +232,8 @@
             </label>
           </div>
           <label>رسالتك بالعربية
-            <textarea id="messageField" name="message" maxlength="280" rows="5" placeholder="علمني معلمي أن..." required translate="no"></textarea>
-            <span class="counter"><b id="charCount">0</b>/280</span>
+            <textarea id="messageField" name="message" maxlength="2000" rows="5" placeholder="علمني معلمي أن..." required translate="no"></textarea>
+            <span class="counter"><b id="charCount">0</b>/2000</span>
           </label>
           <button class="btn btn-light" type="submit"><svg class="icon" aria-hidden="true"><use href="#i-send"></use></svg><span>أرسل للمراجعة</span></button>
           <p class="form-status" id="formStatus" role="status"></p>
@@ -271,12 +272,12 @@
         <strong translate="no">المعلم لغة وأثر</strong>
         <span>معهد تعليم اللغة العربية لغير الناطقين بها</span>
       </div>
-      <small>نموذج أولي للمبادرة — الجامعة الإسلامية بالمدينة المنورة</small>
+      <small>مبادرة المعلم لغة وأثر — الجامعة الإسلامية بالمدينة المنورة</small>
     </div>
   </footer>
 
   <script src="supabase-config.js?v=1"></script>
-  <script src="supabase-client.js?v=1"></script>
-  <script src="script.js?v=7"></script>
+  <script src="supabase-client.js?v=2"></script>
+  <script src="script.js?v=8"></script>
 </body>
 </html>
