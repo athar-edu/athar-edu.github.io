@@ -109,7 +109,7 @@ async function configureLanguageExperience(){
   }
 
   const detected = null;
-  const target = normalizeLanguage(browserLocale);
+  const target = normalizeLanguage(browserLanguage);
 
   // Country is supplied by the student; a campus IP does not identify nationality.
 
@@ -127,10 +127,10 @@ async function configureLanguageExperience(){
   }else if(browserLanguage !== "ar"){
     notice.hidden = false;
     noticeText.textContent =
-      "تعذر تحديد البلد، لذلك استُخدمت لغة الجهاز: " + languageName(target) + ".";
+      "لغة الواجهة المساندة من إعدادات جهازك: " + languageName(target) + ". اضغط زر اللغة للترجمة.";
   }
 
-  if(target === "ar" || stayArabic){
+  if(target === "ar"){
     button.addEventListener("click",()=>{ notice.hidden = !notice.hidden; });
     return;
   }
